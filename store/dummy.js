@@ -1,24 +1,25 @@
 const db = {
     user: [
-        { id: 1, name: "Carlos" }
+        { id: "1", name: "Carlos" }
     ]
 };
 
 
-function list(tabla) {
+async function list(tabla) {
     return db[tabla];
 }
 
-function get(tabla, id) {
-    let collection = db[tabla];
-    return collection.filter(item => item.id === id)[0] || null;
+async function get(tabla, id) {
+    let collection = await list(tabla);
+    return collection.find(item => item.id === id) || null;
 }
 
-function upsert(tabla, data) {
-    db[tabla].push(data);
+async function upsert(tabla, data) {
+    await db[tabla].push(data);
+    return await list(tabla);
 }
 
-function remove(tabla, id) { //eslint-disable-line
+async function remove(tabla, id) { //eslint-disable-line
     return true;
 }
 
