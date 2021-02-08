@@ -1,0 +1,51 @@
+paths:
+  /api/user/:  
+    get:  
+      tags:  
+        - user   
+      summary: Obtener lista de usuarios
+      produces:
+      - application/json
+      responses: 
+        200:
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/List_Usuario'
+  
+  /api/user/{id}:
+    get:
+      tags:
+        - user
+      summary: Obtener un usuario especifico
+      produces:
+        - application/json
+      responses: 
+        200:
+          description: Usuario especifico
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+
+components:
+  schemas:
+    Usuario:
+      type: object
+      properties:
+        id:
+          type: Number
+          example: 8888
+        name:
+          type: string
+          example: "test"
+
+    List_Usuario:
+      type: object
+      properties:
+        body:
+          type: array
+          items: 
+            $ref: '#/components/schemas/Usuario'
+        
