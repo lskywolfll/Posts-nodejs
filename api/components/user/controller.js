@@ -1,4 +1,5 @@
 const TABLA = "user";
+const nanoid = require("nanoid");
 
 module.exports = function (injectedStore) {
 
@@ -13,7 +14,15 @@ module.exports = function (injectedStore) {
     }
 
     function create(data) {
-        return store.upsert(TABLA, data);
+
+        const { name, id } = data;
+
+        const user = {
+            id: id ? id : nanoid(),
+            name: name,
+        };
+
+        return store.upsert(TABLA, user);
     }
 
     function remove(id) {

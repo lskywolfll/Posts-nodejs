@@ -3,19 +3,25 @@ const router = express.Router();
 const controller = require('./index');
 const response = require('../../../network/response');
 
-router.get('/', async (req, res) => {
+// Routes
 
+router.get('/', Listar);
+router.get('/:id', buscarPorID)
+router.post('/create', crear)
+router.delete("/:id", eliminarPorID)
+
+// Internal Functions
+
+async function Listar(req, res) {
     try {
         const lista = await controller.list();
         response.Success(res, lista);
     } catch (error) {
         response.Error(res, error);
     }
+}
 
-});
-
-router.get('/:id', async (req, res) => {
-
+async function buscarPorID(req, res) {
     try {
         const user = await controller.get(req.params.id);
 
@@ -23,11 +29,9 @@ router.get('/:id', async (req, res) => {
     } catch (error) {
         response.Error(res, error);
     }
+}
 
-})
-
-router.post('/create', async (req, res) => {
-
+async function crear(req, res) {
     try {
 
         const user = await controller.create(req.body);
@@ -37,12 +41,9 @@ router.post('/create', async (req, res) => {
     } catch (error) {
         response.Error(res, error);
     }
+}
 
-})
-
-router.delete("/:id", async function (req, res) {
-
-
+async function eliminarPorID(req, res) {
     try {
 
         const deleted = await controller.remove(req.params.id);
@@ -52,6 +53,6 @@ router.delete("/:id", async function (req, res) {
     } catch (error) {
         response.Error(res, error);
     }
-})
+}
 
 module.exports = router;
