@@ -21,9 +21,58 @@ paths:
       summary: Obtener un usuario especifico
       produces:
         - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          schema:
+            type: number
+            example: 1
       responses: 
         200:
           description: Usuario especifico
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+    delete:
+      tags:
+        - user
+      summary: Eliminar un usuario por id
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          description: id
+          required: true
+          schema:
+            type: number
+            example: 1
+      responses:
+        200:
+          description: Eliminado Correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Usuario'
+  
+  /api/user/create:
+    post:
+      tags:
+        - user
+      summary: Crear un usuario
+      produces:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Usuario'
+      responses:
+        200:
+          description: Usuario Creado
           content:
             application/json:
               schema:
@@ -35,7 +84,7 @@ components:
       type: object
       properties:
         id:
-          type: Number
+          type: number
           example: 8888
         name:
           type: string

@@ -33,7 +33,6 @@ async function buscarPorID(req, res) {
 
 async function crear(req, res) {
     try {
-
         const user = await controller.create(req.body);
 
         response.Success(res, user);
