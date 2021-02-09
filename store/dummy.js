@@ -15,6 +15,11 @@ async function get(tabla, id) {
 }
 
 async function upsert(tabla, data) {
+
+    if (!db[tabla]) {
+        db[tabla] = [];
+    }
+
     await db[tabla].push(data);
     return await list(tabla);
 }
