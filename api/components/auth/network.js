@@ -6,15 +6,20 @@ const controller = require('./index');
 router.post("/login", async (req, res) => {
 
     try {
-        const { username, password } = req.body;
 
-        const login = await controller.login(username, password);
+        if (req.body.username && req.body.password) {
+            const { username, password } = req.body;
 
-        response.Success(res, login);
+            const login = await controller.login(username, password);
+
+            response.Success(res, login);
+        } else {
+            response.Error(res, "Faltan datos", 400);
+        }
 
     } catch (error) {
-        console.log(error)
-        response.Error(res, error);
+        console.log(error);
+        response.Error(res, error.toString());
     }
 })
 
