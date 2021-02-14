@@ -9,7 +9,6 @@ module.exports = function (injectedStore) {
         const data = await store.query(TABLA, { username });
 
         if (bcrypt.compareSync(password, data.password)) {
-            delete data.password;
             return auth.sign(data);
         } else {
             throw new Error("Informacion Invalida")

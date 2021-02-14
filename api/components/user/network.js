@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const controller = require('./index');
 const response = require('../../../network/response');
+const secure = require('./secure');
 
 // Routes
 
 router.get('/', Listar);
 router.get('/:id', buscarPorID)
 router.post('/create', crear)
+router.put("/update", secure("update"), crear)
 router.delete("/:id", eliminarPorID)
 
 // Internal Functions

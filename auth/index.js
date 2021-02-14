@@ -15,7 +15,7 @@ function getToken(auth) {
         throw new Error("Formato Invalido")
     }
 
-    const token = auth.replace("Bearer", "");
+    const token = auth.replace("Bearer ", "");
 
     return token;
 }
@@ -47,6 +47,12 @@ const check = {
         const decoded = decodeHeader(req);
         console.log(owner)
         console.log(decoded)
+
+        if (decoded.id !== owner) {
+            throw new Error("No puedes hacer esto");
+        }
+
+        return decoded
     },
 
 }
