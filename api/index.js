@@ -4,7 +4,7 @@ const cors = require('cors');
 const { api: { port } } = require('../config');
 
 const allRoutes = require('./routes');
-
+const errors = require('../network/errors');
 // Config Server
 
 app.use(express.json({ limit: "5mb" }))
@@ -21,6 +21,7 @@ app.get("/api-docs", swaggerUI.setup(specs, { swaggerOptions: options }));
 // Routes
 
 app.use(allRoutes);
+app.use(errors);
 
 app.listen(port, () => {
     console.log(`Api escuchando en: http://localhost:${port}`);
