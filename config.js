@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 
 const config = {
     api: {
@@ -7,6 +7,12 @@ const config = {
     },
     jwt: {
         secret: process.env.JWT_SECRET || "secreto"
+    },
+    mysql: {
+        host: process.env.MYSQL_HOST || "localhost",
+        user: process.env.MYSQL_USER || "1234",
+        password: process.env.MYSQL_PASSWORD || "1234",
+        database: process.env.MYSQL_DATABASE || "1234"
     }
 }
 

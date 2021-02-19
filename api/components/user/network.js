@@ -14,37 +14,37 @@ router.delete("/:id", eliminarPorID)
 
 // Internal Functions
 
-async function Listar(req, res) {
+async function Listar(req, res, next) {
     try {
         const lista = await controller.list();
         response.Success(res, lista);
     } catch (error) {
-        response.Error(res, error);
+        next(error);
     }
 }
 
-async function buscarPorID(req, res) {
+async function buscarPorID(req, res, next) {
     try {
         const user = await controller.get(req.params.id);
 
         response.Success(res, user);
     } catch (error) {
-        response.Error(res, error);
+        next(error);
     }
 }
 
-async function crear(req, res) {
+async function crear(req, res, next) {
     try {
         const user = await controller.create(req.body);
 
         response.Success(res, user);
 
     } catch (error) {
-        response.Error(res, error);
+        next(error);
     }
 }
 
-async function eliminarPorID(req, res) {
+async function eliminarPorID(req, res, next) {
     try {
 
         const deleted = await controller.remove(req.params.id);
@@ -52,7 +52,7 @@ async function eliminarPorID(req, res) {
         response.Success(res, deleted);
 
     } catch (error) {
-        response.Error(res, error);
+        next(error);
     }
 }
 

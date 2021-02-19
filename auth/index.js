@@ -9,11 +9,11 @@ function sign(data) {
 
 function getToken(auth) {
     if (!auth) {
-        throw new Error("No viene token");
+        throw error("No viene token", 401);
     }
 
     if (auth.indexOf("Bearer ") === -1) {
-        throw new Error("Formato Invalido")
+        throw error("Formato Invalido", 401);
     }
 
     const token = auth.replace("Bearer ", "");
@@ -25,7 +25,7 @@ function verify(token) {
     return jwt.verify(token, secret, (err, decoded) => {
 
         if (err) {
-            throw new Error("Token Invalido");
+            throw error("Token Invalido", 401);
         }
 
         return decoded
