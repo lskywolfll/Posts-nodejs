@@ -46,8 +46,6 @@ function decodeHeader(req) {
 const check = {
     own: function (req, owner = "") {
         const decoded = decodeHeader(req);
-        console.log(owner)
-        console.log(decoded)
 
         if (decoded.id !== owner) {
             throw error("No puedes hacer esto", 401);

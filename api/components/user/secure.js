@@ -1,15 +1,15 @@
 const auth = require('../../../auth');
 
-module.exports = function checkAuth(action) {
+function checkAuth(action) {
 
     function middleware(req, res, next) {
-
 
         switch (action) {
             case "update":
                 // eslint-disable-next-line no-case-declarations
                 const owner = req.body.id;
                 auth.check.own(req, owner);
+                next();
                 break;
 
             default:
@@ -22,3 +22,5 @@ module.exports = function checkAuth(action) {
     return middleware;
 
 }
+
+module.exports = checkAuth

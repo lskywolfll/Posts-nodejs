@@ -26,11 +26,17 @@ module.exports = function (injectedStore) {
 
         if (data.password || data.name) {
             await auth.upsert({
-                ...data,
+                id: user.id,
+                password: data.password,
+                username
             })
         }
 
         return store.upsert(TABLA, user);
+    }
+
+    async function update(data) {
+        return store.upsert(TABLA, data);
     }
 
     function remove(id) {
@@ -41,6 +47,7 @@ module.exports = function (injectedStore) {
         list,
         get,
         create,
-        remove
+        remove,
+        update
     };
 }

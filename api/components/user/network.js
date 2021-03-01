@@ -9,7 +9,7 @@ const secure = require('./secure');
 router.get('/', Listar);
 router.get('/:id', buscarPorID)
 router.post('/create', crear)
-router.put("/update", secure("update"), crear)
+router.put("/update", secure("update"), update)
 router.delete("/:id", eliminarPorID)
 
 // Internal Functions
@@ -38,6 +38,18 @@ async function crear(req, res, next) {
         const user = await controller.create(req.body);
 
         response.Success(res, user);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+async function update(req, res, next) {
+    try {
+
+        const update = await controller.update(req.body);
+
+        response.Success(res, update);
 
     } catch (error) {
         next(error);
