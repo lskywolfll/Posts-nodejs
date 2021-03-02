@@ -12,7 +12,7 @@ const connection = mysql.createPool({
     user,
     password,
     database
-})
+});
 
 // let connection;
 

@@ -61,7 +61,7 @@ function insert(table, data) {
     return new Promise((resolve, reject) => {
         connection
             .query(`
-                INSERT INTO ${table} SET ?`, data, (err, data) => {
+                INSERT INTO ${table} SET ? ON DUPLICATE KEY UPDATE ?`, [data, data], (err, data) => {
                 if (err) return reject(err);
 
                 resolve(data);
@@ -99,7 +99,13 @@ function query(table, query) {
             .query(`SELECT * FROM ${table} WHERE ?`, query, (err, result) => {
                 if (err) return reject(err);
 
-                resolve(result);
+                const output = {
+                    id: result[0].id,
+                    username: result[0].username,
+                    password: result[0].password
+                }
+
+                resolve(output);
             })
     });
 }

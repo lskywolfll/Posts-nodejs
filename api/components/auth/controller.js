@@ -6,12 +6,7 @@ module.exports = function (injectedStore) {
     let store = injectedStore || require('../../../store/dummy');
 
     async function login(username, password) {
-        const result = await store.query(TABLA, { username });
-        const data = {
-            id: result[0].id,
-            username: result[0].username,
-            password: result[0].password
-        };
+        const data = await store.query(TABLA, { username });
 
         const validator = bcrypt.compareSync(password, data.password);
 
@@ -27,8 +22,6 @@ module.exports = function (injectedStore) {
         const authData = {
             id: data.id,
         };
-
-        console.log(data.id)
 
         if (data.username) {
             authData.username = data.username;

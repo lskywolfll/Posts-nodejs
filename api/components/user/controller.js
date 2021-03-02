@@ -16,10 +16,10 @@ module.exports = function (injectedStore) {
 
     async function create(data) {
 
-        const { name, username, id } = data;
+        const { name, username } = data;
 
         const user = {
-            id: id ? id : nanoid(),
+            id: nanoid(),
             name: name,
             username
         };
