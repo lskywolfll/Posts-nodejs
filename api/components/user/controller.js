@@ -51,8 +51,13 @@ module.exports = function (injectedStore) {
         });
     }
 
-    async function followers(user_id) {
-        return store.query(TABLE_FOLLOW, { user_from: user_id });
+    async function followers(user) {
+
+        const join = {};
+        join[TABLA] = "user_to";
+        const query = { user_from: user }
+
+        return store.query(TABLE_FOLLOW, query, join);
     }
 
     return {
