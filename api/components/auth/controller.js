@@ -6,15 +6,29 @@ module.exports = function (injectedStore) {
     let store = injectedStore || require('../../../store/dummy');
 
     async function login(username, password) {
-        const data = await store.query(TABLA, { username });
+        const result = await store.query(TABLA, { username });
 
-        const validator = bcrypt.compareSync(password, data.password);
+        const isData = result.length;
 
-        if (validator) {
-            return auth.sign(data);
+        if (isData > 0) {
+            const data = {
+                id: result[0].id,
+                username: result[0].username,
+                password: result[0].password
+            };
+
+            const validator = await bcrypt.compareSync(password, data.password);
+
+            if (validator) {
+                return auth.sign(data);
+            } else {
+                throw new Error("Informacion Invalida");
+            }
         } else {
-            throw new Error("Informacion Invalida");
+            throw new Error("User don't exist");
         }
+
+
     }
 
     async function upsert(data) {

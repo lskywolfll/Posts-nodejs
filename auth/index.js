@@ -53,6 +53,12 @@ const check = {
 
         return decoded
     },
+    logged: function (req) {
+
+        const decoded = decodeHeader(req);
+
+        return decoded
+    }
 
 }
 

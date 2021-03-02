@@ -99,13 +99,7 @@ function query(table, query) {
             .query(`SELECT * FROM ${table} WHERE ?`, query, (err, result) => {
                 if (err) return reject(err);
 
-                const output = {
-                    id: result[0].id,
-                    username: result[0].username,
-                    password: result[0].password
-                }
-
-                resolve(output);
+                resolve(result);
             })
     });
 }

@@ -7,12 +7,37 @@ const secure = require('./secure');
 // Routes
 
 router.get('/', Listar);
-router.get('/:id', buscarPorID)
-router.post('/create', crear)
-router.put("/update", secure("update"), update)
-router.delete("/:id", eliminarPorID)
+router.get('/:id', buscarPorID);
+router.post('/create', crear);
+router.post("/follow/:id", secure("follow"), follow);
+router.post("/followers", secure("follow"), followers);
+router.put("/update", secure("update"), update);
+router.delete("/:id", eliminarPorID);
 
 // Internal Functions
+
+async function follow(req, res, next) {
+    try {
+        console.log(req.user.id)
+        const status = await controller.follow(req.user.id, req.params.id);
+        response.Success(res, status, 201);
+
+    } catch (error) {
+        next(error);
+    }
+}
+
+
+async function followers(req, res, next) {
+    try {
+
+        const followers = await controller.followers(req.user.id);
+        response.Success(res, followers);
+
+    } catch (error) {
+        next(error);
+    }
+}
 
 async function Listar(req, res, next) {
     try {
@@ -37,7 +62,7 @@ async function crear(req, res, next) {
     try {
         const user = await controller.create(req.body);
 
-        response.Success(res, user);
+        response.Success(res, user, 201);
 
     } catch (error) {
         next(error);

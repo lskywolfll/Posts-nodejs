@@ -63,9 +63,6 @@ function query(table, query) {
                 if (err) return reject(err);
 
                 resolve(result);
-            })
-            .on('end', function () {
-                console.log('User ' + ' has updated his socketID to ');
             });
     });
 }
