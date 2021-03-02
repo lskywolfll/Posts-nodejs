@@ -51,7 +51,7 @@ module.exports = function (injectedStore) {
         });
     }
 
-    async function followers(user) {
+    async function following(user) {
 
         const join = {};
         join[TABLA] = "user_to";
@@ -67,6 +67,6 @@ module.exports = function (injectedStore) {
         remove,
         update,
         follow,
-        followers
+        following
     };
 }

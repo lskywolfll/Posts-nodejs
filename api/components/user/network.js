@@ -19,7 +19,7 @@ router.delete("/:id", eliminarPorID);
 async function follow(req, res, next) {
     try {
         console.log(req.user.id)
-        const status = await controller.follow(req.user.id, req.params.id);
+        const status = await controller.following(req.user.id, req.params.id);
         response.Success(res, status, 201);
 
     } catch (error) {
