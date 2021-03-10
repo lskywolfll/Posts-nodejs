@@ -13,7 +13,10 @@ const config = {
         user: process.env.MYSQL_USER || "1234",
         password: process.env.MYSQL_PASSWORD || "1234",
         database: process.env.MYSQL_DATABASE || "1234"
-    }
+    },
+    mysqlService: {
+        port: process.env.MYSQL_SERVICE || 3001
+    },
 }
 
 module.exports = config
