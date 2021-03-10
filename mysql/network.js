@@ -7,6 +7,25 @@ router.get('/:tabla', list);
 router.get('/:tabla/:id', get);
 router.post('/:tabla', insert);
 router.put('/:tabla', upsert);
+router.post("/:tabla/query", query);
+
+async function query(req, res, next) {
+    try {
+
+        const tabla = req.params.tabla;
+        const {
+            query,
+            join
+        } = req.body;
+
+        const list = await Store.query(tabla, query, join);
+
+        response.Success(res, list);
+
+    } catch (error) {
+        next(error);
+    }
+}
 
 async function list(req, res, next) {
     try {
